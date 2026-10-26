@@ -8,7 +8,7 @@
 #include "scooby.h"
 #include "next_line.h"
 #include "bop.h"
-#include "sandbox.h"
+//#include "sandbox.h"
 #include "dspatch.h"
 #include "spp_dev2.h"
 #include "ppf_dev.h"
@@ -19,6 +19,7 @@
 #include "ampm.h"
 #include "streamer.h"
 #include "pref_power7.h"
+#include "rich.h"
 
 using namespace std;
 
@@ -42,6 +43,10 @@ void CACHE::l2c_prefetcher_initialize()
 			cout << "adding L2C_PREFETCHER: SMS" << endl;
 			SMSPrefetcher *pref_sms = new SMSPrefetcher(knob::l2c_prefetcher_types[index]);
 			prefetchers.push_back(pref_sms);
+		}
+		else if (knob::l2c_prefetcher_types[index] == "rich") {
+    		RichPrefetcher *pref = new RichPrefetcher("l2c", RichMode::FULL_RICH);
+    		l2c_prefetchers.push_back(pref);
 		}
 		else if(!knob::l2c_prefetcher_types[index].compare("bop"))
 		{
@@ -70,8 +75,8 @@ void CACHE::l2c_prefetcher_initialize()
 		else if(!knob::l2c_prefetcher_types[index].compare("sandbox"))
 		{
 			cout << "adding L2C_PREFETCHER: Sandbox" << endl;
-			SandboxPrefetcher *pref_sandbox = new SandboxPrefetcher(knob::l2c_prefetcher_types[index]);
-			prefetchers.push_back(pref_sandbox);
+//			SandboxPrefetcher *pref_sandbox = new SandboxPrefetcher(knob::l2c_prefetcher_types[index]);
+//			prefetchers.push_back(pref_sandbox);
 		}
 		else if(!knob::l2c_prefetcher_types[index].compare("spp_dev2"))
 		{

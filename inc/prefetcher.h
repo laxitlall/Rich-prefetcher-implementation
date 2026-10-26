@@ -1,3 +1,4 @@
+#include <cstdint>
 #ifndef PREFETCHER_H
 #define PREFETCHER_H
 

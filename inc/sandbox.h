@@ -4,7 +4,7 @@
 #include <vector>
 #include <deque>
 #include "prefetcher.h"
-#include "bf/all.hpp"
+//#include "bf/all.hpp"
 using namespace std;
 
 class Score
