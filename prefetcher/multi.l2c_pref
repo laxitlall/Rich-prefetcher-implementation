@@ -44,9 +44,11 @@ void CACHE::l2c_prefetcher_initialize()
 			SMSPrefetcher *pref_sms = new SMSPrefetcher(knob::l2c_prefetcher_types[index]);
 			prefetchers.push_back(pref_sms);
 		}
-		else if (knob::l2c_prefetcher_types[index] == "rich") {
-    		RichPrefetcher *pref = new RichPrefetcher("l2c", RichMode::FULL_RICH);
-    		l2c_prefetchers.push_back(pref);
+		else if(!knob::l2c_prefetcher_types[index].compare("rich"))
+		{
+			cout << "adding L2C_PREFETCHER: RICH" << endl;
+			RichPrefetcher *pref_rich = new RichPrefetcher(knob::l2c_prefetcher_types[index]);
+			prefetchers.push_back(pref_rich);
 		}
 		else if(!knob::l2c_prefetcher_types[index].compare("bop"))
 		{
