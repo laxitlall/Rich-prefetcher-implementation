@@ -1,0 +1,664 @@
+*************************************************
+   ChampSim Multicore Out-of-Order Simulator
+   Last compiled: Oct 27 2026 09:26:04
+*************************************************
+parsing config file: config/bingo.ini
+
+trace_0 ./traces/605.mcf_s-782B.champsimtrace.xz
+adding L2C_PREFETCHER: Bingo
+Initialize SHIP state
+warmup_instructions 50000000
+simulation_instructions 200000000
+champsim_seed 227
+measure_ipc 0
+measure_ipc_epoch 1000
+measure_dram_bw 1
+measure_dram_bw_epoch 256
+measure_cache_acc 1
+measure_cache_acc_epoch 1024
+l1d_perfect 0
+l2c_perfect 0
+llc_perfect 0
+l1d_semi_perfect 0
+l2c_semi_perfect 0
+llc_semi_perfect 0
+semi_perfect_cache_page_buffer_size 64
+
+num_cpus 1
+cpu_freq 4000
+dram_io_freq 2400
+page_size 4096
+block_size 64
+max_read_per_cycle 8
+max_fill_per_cycle 1
+dram_channels 1
+log2_dram_channels 0
+dram_ranks 1
+dram_banks 8
+dram_rows 65536
+dram_columns 128
+dram_row_size 8
+dram_size 4096
+dram_pages 1048576
+
+fetch_width 6
+decode_width 6
+exec_width 4
+lq_width 2
+sq_width 2
+retire_width 4
+scheduler_size 128
+branch_mispredict_penalty 20
+rob_size 256
+lq_size 72
+sq_size 56
+num_instr_destinations_sparc 4
+num_instr_destinations 2
+num_instr_sources 4
+
+itlb_set 16
+itlb_way 8
+itlb_rq_size 16
+itlb_wq_size 16
+itlb_pq_size 0
+itlb_mshr_size 8
+itlb_latency 1
+
+dtlb_set 16
+dtlb_way 4
+dtlb_rq_size 16
+dtlb_wq_size 16
+dtlb_pq_size 0
+dtlb_mshr_size 8
+dtlb_latency 1
+
+stlb_set 128
+stlb_way 12
+stlb_rq_size 32
+stlb_wq_size 32
+stlb_pq_size 0
+stlb_mshr_size 16
+stlb_latency 8
+
+l1i_size 32
+l1i_set 64
+l1i_way 8
+l1i_rq_size 64
+l1i_wq_size 64
+l1i_pq_size 8
+l1i_mshr_size 8
+l1i_latency 1
+
+l1d_size 32
+l1d_set 64
+l1d_way 8
+l1d_rq_size 64
+l1d_wq_size 64
+l1d_pq_size 8
+l1d_mshr_size 16
+l1d_latency 4
+
+l2c_size 256
+l2c_set 512
+l2c_way 8
+l2c_rq_size 32
+l2c_wq_size 32
+l2c_pq_size 32
+l2c_mshr_size 32
+l2c_latency 10
+
+llc_size 2048
+llc_set 2048
+llc_way 16
+llc_rq_size 32
+llc_wq_size 32
+llc_pq_size 32
+llc_mshr_size 64
+llc_latency 20
+
+dram_channel_width 8
+dram_wq_size 64
+dram_rq_size 64
+tRP 15
+tRCD 15
+tCAS 12.5
+dram_dbus_turn_around_time 30
+dram_write_high_wm 56
+dram_write_low_wm 48
+min_dram_writes_per_switch 16
+dram_mtps 2400
+dram_dbus_return_time 13
+
+bingo_region_size 2048
+bingo_pattern_len 32
+bingo_pc_width 16
+bingo_min_addr_width 5
+bingo_max_addr_width 16
+bingo_ft_size 64
+bingo_at_size 128
+bingo_pht_size 4096
+bingo_pht_ways 16
+bingo_pf_streamer_size 128
+bingo_debug_level 0
+bingo_l1d_thresh 1.01
+bingo_l2c_thresh 0.8
+bingo_llc_thresh 0.05
+bingo_pc_address_fill_level L2
+
+
+Heartbeat CPU  0 instructions:    1000001 cycles:     829718 heartbeat IPC: 1.20523 cumulative IPC: 1.20523 (Simulation time: 0 hr 0 min 6 sec) 
+Heartbeat CPU  0 instructions:    2000000 cycles:    1654844 heartbeat IPC: 1.21193 cumulative IPC: 1.20857 (Simulation time: 0 hr 0 min 16 sec) 
+Heartbeat CPU  0 instructions:    3000002 cycles:    2474464 heartbeat IPC: 1.22008 cumulative IPC: 1.21238 (Simulation time: 0 hr 0 min 21 sec) 
+Heartbeat CPU  0 instructions:    4000000 cycles:    3391681 heartbeat IPC: 1.09025 cumulative IPC: 1.17936 (Simulation time: 0 hr 0 min 26 sec) 
+Heartbeat CPU  0 instructions:    5000000 cycles:    4243554 heartbeat IPC: 1.17388 cumulative IPC: 1.17826 (Simulation time: 0 hr 0 min 31 sec) 
+Heartbeat CPU  0 instructions:    6000000 cycles:    5072699 heartbeat IPC: 1.20606 cumulative IPC: 1.18280 (Simulation time: 0 hr 0 min 36 sec) 
+Heartbeat CPU  0 instructions:    7000000 cycles:    5886498 heartbeat IPC: 1.22880 cumulative IPC: 1.18916 (Simulation time: 0 hr 0 min 42 sec) 
+Heartbeat CPU  0 instructions:    8000000 cycles:    6697832 heartbeat IPC: 1.23254 cumulative IPC: 1.19442 (Simulation time: 0 hr 0 min 47 sec) 
+Heartbeat CPU  0 instructions:    9000000 cycles:    7514249 heartbeat IPC: 1.22486 cumulative IPC: 1.19772 (Simulation time: 0 hr 0 min 52 sec) 
+Heartbeat CPU  0 instructions:   10000001 cycles:    8325871 heartbeat IPC: 1.23210 cumulative IPC: 1.20108 (Simulation time: 0 hr 0 min 58 sec) 
+Heartbeat CPU  0 instructions:   11000000 cycles:    9137624 heartbeat IPC: 1.23190 cumulative IPC: 1.20381 (Simulation time: 0 hr 1 min 3 sec) 
+Heartbeat CPU  0 instructions:   12000000 cycles:    9954824 heartbeat IPC: 1.22369 cumulative IPC: 1.20545 (Simulation time: 0 hr 1 min 9 sec) 
+Heartbeat CPU  0 instructions:   13000002 cycles:   10776456 heartbeat IPC: 1.21709 cumulative IPC: 1.20633 (Simulation time: 0 hr 1 min 16 sec) 
+Heartbeat CPU  0 instructions:   14000003 cycles:   11575318 heartbeat IPC: 1.25178 cumulative IPC: 1.20947 (Simulation time: 0 hr 1 min 21 sec) 
+Heartbeat CPU  0 instructions:   15000000 cycles:   12379663 heartbeat IPC: 1.24324 cumulative IPC: 1.21166 (Simulation time: 0 hr 1 min 26 sec) 
+Heartbeat CPU  0 instructions:   16000000 cycles:   13176029 heartbeat IPC: 1.25570 cumulative IPC: 1.21433 (Simulation time: 0 hr 1 min 31 sec) 
+Heartbeat CPU  0 instructions:   17000000 cycles:   13981680 heartbeat IPC: 1.24123 cumulative IPC: 1.21588 (Simulation time: 0 hr 1 min 36 sec) 
+Heartbeat CPU  0 instructions:   18000001 cycles:   14790814 heartbeat IPC: 1.23589 cumulative IPC: 1.21697 (Simulation time: 0 hr 1 min 43 sec) 
+Heartbeat CPU  0 instructions:   19000000 cycles:   15603176 heartbeat IPC: 1.23098 cumulative IPC: 1.21770 (Simulation time: 0 hr 1 min 49 sec) 
+Heartbeat CPU  0 instructions:   20000000 cycles:   16433764 heartbeat IPC: 1.20397 cumulative IPC: 1.21701 (Simulation time: 0 hr 1 min 54 sec) 
+Heartbeat CPU  0 instructions:   21000003 cycles:   17266571 heartbeat IPC: 1.20076 cumulative IPC: 1.21622 (Simulation time: 0 hr 2 min 0 sec) 
+Heartbeat CPU  0 instructions:   22000000 cycles:   18149347 heartbeat IPC: 1.13279 cumulative IPC: 1.21216 (Simulation time: 0 hr 2 min 5 sec) 
+Heartbeat CPU  0 instructions:   23000001 cycles:   18996979 heartbeat IPC: 1.17976 cumulative IPC: 1.21072 (Simulation time: 0 hr 2 min 11 sec) 
+Heartbeat CPU  0 instructions:   24000000 cycles:   19842104 heartbeat IPC: 1.18326 cumulative IPC: 1.20955 (Simulation time: 0 hr 2 min 18 sec) 
+Heartbeat CPU  0 instructions:   25000001 cycles:   20683178 heartbeat IPC: 1.18896 cumulative IPC: 1.20871 (Simulation time: 0 hr 2 min 24 sec) 
+Heartbeat CPU  0 instructions:   26000002 cycles:   21522174 heartbeat IPC: 1.19190 cumulative IPC: 1.20806 (Simulation time: 0 hr 2 min 29 sec) 
+Heartbeat CPU  0 instructions:   27000001 cycles:   22363555 heartbeat IPC: 1.18852 cumulative IPC: 1.20732 (Simulation time: 0 hr 2 min 34 sec) 
+Heartbeat CPU  0 instructions:   28000000 cycles:   23203384 heartbeat IPC: 1.19072 cumulative IPC: 1.20672 (Simulation time: 0 hr 2 min 39 sec) 
+Heartbeat CPU  0 instructions:   29000001 cycles:   24051795 heartbeat IPC: 1.17868 cumulative IPC: 1.20573 (Simulation time: 0 hr 2 min 46 sec) 
+Heartbeat CPU  0 instructions:   30000000 cycles:   24923864 heartbeat IPC: 1.14670 cumulative IPC: 1.20367 (Simulation time: 0 hr 2 min 54 sec) 
+Heartbeat CPU  0 instructions:   31000000 cycles:   25781840 heartbeat IPC: 1.16553 cumulative IPC: 1.20240 (Simulation time: 0 hr 2 min 59 sec) 
+Heartbeat CPU  0 instructions:   32000000 cycles:   26605397 heartbeat IPC: 1.21425 cumulative IPC: 1.20276 (Simulation time: 0 hr 3 min 4 sec) 
+Heartbeat CPU  0 instructions:   33000000 cycles:   27461848 heartbeat IPC: 1.16761 cumulative IPC: 1.20167 (Simulation time: 0 hr 3 min 8 sec) 
+Heartbeat CPU  0 instructions:   34000003 cycles:   28271329 heartbeat IPC: 1.23536 cumulative IPC: 1.20263 (Simulation time: 0 hr 3 min 13 sec) 
+Heartbeat CPU  0 instructions:   35000001 cycles:   29115559 heartbeat IPC: 1.18451 cumulative IPC: 1.20211 (Simulation time: 0 hr 3 min 20 sec) 
+Heartbeat CPU  0 instructions:   36000000 cycles:   29990056 heartbeat IPC: 1.14351 cumulative IPC: 1.20040 (Simulation time: 0 hr 3 min 27 sec) 
+Heartbeat CPU  0 instructions:   37000000 cycles:   30825378 heartbeat IPC: 1.19714 cumulative IPC: 1.20031 (Simulation time: 0 hr 3 min 32 sec) 
+Heartbeat CPU  0 instructions:   38000003 cycles:   31653465 heartbeat IPC: 1.20761 cumulative IPC: 1.20050 (Simulation time: 0 hr 3 min 37 sec) 
+Heartbeat CPU  0 instructions:   39000003 cycles:   32498560 heartbeat IPC: 1.18330 cumulative IPC: 1.20005 (Simulation time: 0 hr 3 min 42 sec) 
+Heartbeat CPU  0 instructions:   40000000 cycles:   33324406 heartbeat IPC: 1.21088 cumulative IPC: 1.20032 (Simulation time: 0 hr 3 min 47 sec) 
+Heartbeat CPU  0 instructions:   41000000 cycles:   34153293 heartbeat IPC: 1.20644 cumulative IPC: 1.20047 (Simulation time: 0 hr 3 min 55 sec) 
+Heartbeat CPU  0 instructions:   42000000 cycles:   35102297 heartbeat IPC: 1.05374 cumulative IPC: 1.19650 (Simulation time: 0 hr 4 min 0 sec) 
+Heartbeat CPU  0 instructions:   43000000 cycles:   35927892 heartbeat IPC: 1.21125 cumulative IPC: 1.19684 (Simulation time: 0 hr 4 min 5 sec) 
+Heartbeat CPU  0 instructions:   44000000 cycles:   36740076 heartbeat IPC: 1.23125 cumulative IPC: 1.19760 (Simulation time: 0 hr 4 min 10 sec) 
+Heartbeat CPU  0 instructions:   45000002 cycles:   37560162 heartbeat IPC: 1.21939 cumulative IPC: 1.19808 (Simulation time: 0 hr 4 min 15 sec) 
+Heartbeat CPU  0 instructions:   46000002 cycles:   38391443 heartbeat IPC: 1.20296 cumulative IPC: 1.19818 (Simulation time: 0 hr 4 min 22 sec) 
+Heartbeat CPU  0 instructions:   47000000 cycles:   39217039 heartbeat IPC: 1.21124 cumulative IPC: 1.19846 (Simulation time: 0 hr 4 min 29 sec) 
+Heartbeat CPU  0 instructions:   48000000 cycles:   40040216 heartbeat IPC: 1.21481 cumulative IPC: 1.19879 (Simulation time: 0 hr 4 min 34 sec) 
+Heartbeat CPU  0 instructions:   49000002 cycles:   40891061 heartbeat IPC: 1.17530 cumulative IPC: 1.19831 (Simulation time: 0 hr 4 min 40 sec) 
+Heartbeat CPU  0 instructions:   50000000 cycles:   41709167 heartbeat IPC: 1.22233 cumulative IPC: 1.19878 (Simulation time: 0 hr 4 min 45 sec) 
+
+Warmup complete CPU  0 instructions:   50000003 cycles:   41709168 (Simulation time: 0 hr 4 min 45 sec) 
+
+Heartbeat CPU  0 instructions:   51000000 cycles:   51578104 heartbeat IPC: 0.10133 cumulative IPC: 0.10133 (Simulation time: 0 hr 5 min 4 sec) 
+Heartbeat CPU  0 instructions:   52000000 cycles:   61226145 heartbeat IPC: 0.10365 cumulative IPC: 0.10247 (Simulation time: 0 hr 5 min 19 sec) 
+Heartbeat CPU  0 instructions:   53000000 cycles:   71116889 heartbeat IPC: 0.10110 cumulative IPC: 0.10201 (Simulation time: 0 hr 5 min 38 sec) 
+Heartbeat CPU  0 instructions:   54000002 cycles:   81513166 heartbeat IPC: 0.09619 cumulative IPC: 0.10049 (Simulation time: 0 hr 5 min 54 sec) 
+Heartbeat CPU  0 instructions:   55000000 cycles:   92050362 heartbeat IPC: 0.09490 cumulative IPC: 0.09932 (Simulation time: 0 hr 6 min 14 sec) 
+Heartbeat CPU  0 instructions:   56000000 cycles:  103264641 heartbeat IPC: 0.08917 cumulative IPC: 0.09747 (Simulation time: 0 hr 6 min 33 sec) 
+Heartbeat CPU  0 instructions:   57000000 cycles:  113805801 heartbeat IPC: 0.09487 cumulative IPC: 0.09709 (Simulation time: 0 hr 6 min 51 sec) 
+Heartbeat CPU  0 instructions:   58000001 cycles:  123660882 heartbeat IPC: 0.10147 cumulative IPC: 0.09762 (Simulation time: 0 hr 7 min 9 sec) 
+Heartbeat CPU  0 instructions:   59000001 cycles:  133592029 heartbeat IPC: 0.10069 cumulative IPC: 0.09795 (Simulation time: 0 hr 7 min 24 sec) 
+Heartbeat CPU  0 instructions:   60000000 cycles:  143568270 heartbeat IPC: 0.10024 cumulative IPC: 0.09817 (Simulation time: 0 hr 7 min 43 sec) 
+Heartbeat CPU  0 instructions:   61000000 cycles:  153624713 heartbeat IPC: 0.09944 cumulative IPC: 0.09829 (Simulation time: 0 hr 7 min 58 sec) 
+Heartbeat CPU  0 instructions:   62000001 cycles:  163476309 heartbeat IPC: 0.10151 cumulative IPC: 0.09855 (Simulation time: 0 hr 8 min 17 sec) 
+Heartbeat CPU  0 instructions:   63000002 cycles:  173544896 heartbeat IPC: 0.09932 cumulative IPC: 0.09861 (Simulation time: 0 hr 8 min 32 sec) 
+Heartbeat CPU  0 instructions:   64000000 cycles:  183833669 heartbeat IPC: 0.09719 cumulative IPC: 0.09851 (Simulation time: 0 hr 8 min 51 sec) 
+Heartbeat CPU  0 instructions:   65000001 cycles:  194562141 heartbeat IPC: 0.09321 cumulative IPC: 0.09813 (Simulation time: 0 hr 9 min 7 sec) 
+Heartbeat CPU  0 instructions:   66000002 cycles:  204625908 heartbeat IPC: 0.09937 cumulative IPC: 0.09821 (Simulation time: 0 hr 9 min 26 sec) 
+Heartbeat CPU  0 instructions:   67000003 cycles:  214720846 heartbeat IPC: 0.09906 cumulative IPC: 0.09826 (Simulation time: 0 hr 9 min 42 sec) 
+Heartbeat CPU  0 instructions:   68000000 cycles:  224532142 heartbeat IPC: 0.10192 cumulative IPC: 0.09846 (Simulation time: 0 hr 10 min 0 sec) 
+Heartbeat CPU  0 instructions:   69000000 cycles:  234588854 heartbeat IPC: 0.09944 cumulative IPC: 0.09851 (Simulation time: 0 hr 10 min 17 sec) 
+Heartbeat CPU  0 instructions:   70000001 cycles:  244439996 heartbeat IPC: 0.10151 cumulative IPC: 0.09865 (Simulation time: 0 hr 10 min 34 sec) 
+Heartbeat CPU  0 instructions:   71000002 cycles:  254408412 heartbeat IPC: 0.10032 cumulative IPC: 0.09873 (Simulation time: 0 hr 10 min 51 sec) 
+Heartbeat CPU  0 instructions:   72000000 cycles:  264437805 heartbeat IPC: 0.09971 cumulative IPC: 0.09877 (Simulation time: 0 hr 11 min 8 sec) 
+Heartbeat CPU  0 instructions:   73000001 cycles:  274338917 heartbeat IPC: 0.10100 cumulative IPC: 0.09887 (Simulation time: 0 hr 11 min 26 sec) 
+Heartbeat CPU  0 instructions:   74000000 cycles:  284437816 heartbeat IPC: 0.09902 cumulative IPC: 0.09888 (Simulation time: 0 hr 11 min 42 sec) 
+Heartbeat CPU  0 instructions:   75000001 cycles:  294554120 heartbeat IPC: 0.09885 cumulative IPC: 0.09887 (Simulation time: 0 hr 12 min 1 sec) 
+Heartbeat CPU  0 instructions:   76000000 cycles:  304832756 heartbeat IPC: 0.09729 cumulative IPC: 0.09881 (Simulation time: 0 hr 12 min 17 sec) 
+Heartbeat CPU  0 instructions:   77000000 cycles:  314925308 heartbeat IPC: 0.09908 cumulative IPC: 0.09882 (Simulation time: 0 hr 12 min 35 sec) 
+Heartbeat CPU  0 instructions:   78000003 cycles:  325257986 heartbeat IPC: 0.09678 cumulative IPC: 0.09875 (Simulation time: 0 hr 12 min 51 sec) 
+Heartbeat CPU  0 instructions:   79000000 cycles:  335546671 heartbeat IPC: 0.09719 cumulative IPC: 0.09869 (Simulation time: 0 hr 13 min 10 sec) 
+Heartbeat CPU  0 instructions:   80000000 cycles:  345678066 heartbeat IPC: 0.09870 cumulative IPC: 0.09869 (Simulation time: 0 hr 13 min 26 sec) 
+Heartbeat CPU  0 instructions:   81000000 cycles:  355831522 heartbeat IPC: 0.09849 cumulative IPC: 0.09869 (Simulation time: 0 hr 13 min 45 sec) 
+Heartbeat CPU  0 instructions:   82000002 cycles:  366298449 heartbeat IPC: 0.09554 cumulative IPC: 0.09859 (Simulation time: 0 hr 14 min 2 sec) 
+Heartbeat CPU  0 instructions:   83000001 cycles:  376801256 heartbeat IPC: 0.09521 cumulative IPC: 0.09848 (Simulation time: 0 hr 14 min 20 sec) 
+Heartbeat CPU  0 instructions:   84000000 cycles:  387748859 heartbeat IPC: 0.09134 cumulative IPC: 0.09825 (Simulation time: 0 hr 14 min 40 sec) 
+Heartbeat CPU  0 instructions:   85000002 cycles:  397790316 heartbeat IPC: 0.09959 cumulative IPC: 0.09829 (Simulation time: 0 hr 14 min 55 sec) 
+Heartbeat CPU  0 instructions:   86000003 cycles:  407837955 heartbeat IPC: 0.09953 cumulative IPC: 0.09833 (Simulation time: 0 hr 15 min 13 sec) 
+Heartbeat CPU  0 instructions:   87000000 cycles:  419640639 heartbeat IPC: 0.08473 cumulative IPC: 0.09790 (Simulation time: 0 hr 15 min 31 sec) 
+Heartbeat CPU  0 instructions:   88000000 cycles:  430601725 heartbeat IPC: 0.09123 cumulative IPC: 0.09771 (Simulation time: 0 hr 15 min 51 sec) 
+Heartbeat CPU  0 instructions:   89000001 cycles:  440861008 heartbeat IPC: 0.09747 cumulative IPC: 0.09771 (Simulation time: 0 hr 16 min 6 sec) 
+Heartbeat CPU  0 instructions:   90000003 cycles:  451122940 heartbeat IPC: 0.09745 cumulative IPC: 0.09770 (Simulation time: 0 hr 16 min 26 sec) 
+Heartbeat CPU  0 instructions:   91000003 cycles:  461846805 heartbeat IPC: 0.09325 cumulative IPC: 0.09759 (Simulation time: 0 hr 16 min 38 sec) 
+Heartbeat CPU  0 instructions:   92000000 cycles:  471742683 heartbeat IPC: 0.10105 cumulative IPC: 0.09767 (Simulation time: 0 hr 16 min 55 sec) 
+Heartbeat CPU  0 instructions:   93000000 cycles:  481938304 heartbeat IPC: 0.09808 cumulative IPC: 0.09768 (Simulation time: 0 hr 17 min 7 sec) 
+Heartbeat CPU  0 instructions:   94000001 cycles:  492434931 heartbeat IPC: 0.09527 cumulative IPC: 0.09762 (Simulation time: 0 hr 17 min 24 sec) 
+Heartbeat CPU  0 instructions:   95000000 cycles:  502525286 heartbeat IPC: 0.09910 cumulative IPC: 0.09765 (Simulation time: 0 hr 17 min 38 sec) 
+Heartbeat CPU  0 instructions:   96000000 cycles:  512977863 heartbeat IPC: 0.09567 cumulative IPC: 0.09761 (Simulation time: 0 hr 17 min 55 sec) 
+Heartbeat CPU  0 instructions:   97000000 cycles:  523302524 heartbeat IPC: 0.09686 cumulative IPC: 0.09759 (Simulation time: 0 hr 18 min 8 sec) 
+Heartbeat CPU  0 instructions:   98000000 cycles:  534146262 heartbeat IPC: 0.09222 cumulative IPC: 0.09747 (Simulation time: 0 hr 18 min 20 sec) 
+Heartbeat CPU  0 instructions:   99000001 cycles:  545053419 heartbeat IPC: 0.09168 cumulative IPC: 0.09735 (Simulation time: 0 hr 18 min 30 sec) 
+Heartbeat CPU  0 instructions:  100000000 cycles:  555115798 heartbeat IPC: 0.09938 cumulative IPC: 0.09739 (Simulation time: 0 hr 18 min 38 sec) 
+Heartbeat CPU  0 instructions:  101000001 cycles:  565250937 heartbeat IPC: 0.09867 cumulative IPC: 0.09741 (Simulation time: 0 hr 18 min 47 sec) 
+Heartbeat CPU  0 instructions:  102000000 cycles:  575127506 heartbeat IPC: 0.10125 cumulative IPC: 0.09748 (Simulation time: 0 hr 18 min 59 sec) 
+Heartbeat CPU  0 instructions:  103000001 cycles:  585286950 heartbeat IPC: 0.09843 cumulative IPC: 0.09750 (Simulation time: 0 hr 19 min 7 sec) 
+Heartbeat CPU  0 instructions:  104000000 cycles:  595338911 heartbeat IPC: 0.09948 cumulative IPC: 0.09754 (Simulation time: 0 hr 19 min 16 sec) 
+Heartbeat CPU  0 instructions:  105000003 cycles:  607140958 heartbeat IPC: 0.08473 cumulative IPC: 0.09727 (Simulation time: 0 hr 19 min 25 sec) 
+Heartbeat CPU  0 instructions:  106000001 cycles:  618330806 heartbeat IPC: 0.08937 cumulative IPC: 0.09712 (Simulation time: 0 hr 19 min 34 sec) 
+Heartbeat CPU  0 instructions:  107000001 cycles:  628988842 heartbeat IPC: 0.09383 cumulative IPC: 0.09706 (Simulation time: 0 hr 19 min 43 sec) 
+Heartbeat CPU  0 instructions:  108000000 cycles:  639270290 heartbeat IPC: 0.09726 cumulative IPC: 0.09706 (Simulation time: 0 hr 19 min 51 sec) 
+Heartbeat CPU  0 instructions:  109000002 cycles:  649790893 heartbeat IPC: 0.09505 cumulative IPC: 0.09703 (Simulation time: 0 hr 20 min 0 sec) 
+Heartbeat CPU  0 instructions:  110000002 cycles:  660565844 heartbeat IPC: 0.09281 cumulative IPC: 0.09695 (Simulation time: 0 hr 20 min 9 sec) 
+Heartbeat CPU  0 instructions:  111000002 cycles:  671498462 heartbeat IPC: 0.09147 cumulative IPC: 0.09686 (Simulation time: 0 hr 20 min 17 sec) 
+Heartbeat CPU  0 instructions:  112000000 cycles:  680912502 heartbeat IPC: 0.10622 cumulative IPC: 0.09700 (Simulation time: 0 hr 20 min 24 sec) 
+Heartbeat CPU  0 instructions:  113000000 cycles:  690399339 heartbeat IPC: 0.10541 cumulative IPC: 0.09712 (Simulation time: 0 hr 20 min 33 sec) 
+Heartbeat CPU  0 instructions:  114000002 cycles:  699999810 heartbeat IPC: 0.10416 cumulative IPC: 0.09722 (Simulation time: 0 hr 20 min 41 sec) 
+Heartbeat CPU  0 instructions:  115000000 cycles:  709993600 heartbeat IPC: 0.10006 cumulative IPC: 0.09726 (Simulation time: 0 hr 20 min 48 sec) 
+Heartbeat CPU  0 instructions:  116000000 cycles:  721740094 heartbeat IPC: 0.08513 cumulative IPC: 0.09705 (Simulation time: 0 hr 20 min 57 sec) 
+Heartbeat CPU  0 instructions:  117000000 cycles:  731950897 heartbeat IPC: 0.09794 cumulative IPC: 0.09707 (Simulation time: 0 hr 21 min 9 sec) 
+Heartbeat CPU  0 instructions:  118000000 cycles:  741949784 heartbeat IPC: 0.10001 cumulative IPC: 0.09711 (Simulation time: 0 hr 21 min 17 sec) 
+Heartbeat CPU  0 instructions:  119000000 cycles:  752640716 heartbeat IPC: 0.09354 cumulative IPC: 0.09706 (Simulation time: 0 hr 21 min 25 sec) 
+Heartbeat CPU  0 instructions:  120000000 cycles:  762839143 heartbeat IPC: 0.09805 cumulative IPC: 0.09707 (Simulation time: 0 hr 21 min 34 sec) 
+Heartbeat CPU  0 instructions:  121000002 cycles:  773110633 heartbeat IPC: 0.09736 cumulative IPC: 0.09707 (Simulation time: 0 hr 21 min 43 sec) 
+Heartbeat CPU  0 instructions:  122000000 cycles:  783089056 heartbeat IPC: 0.10022 cumulative IPC: 0.09712 (Simulation time: 0 hr 21 min 51 sec) 
+Heartbeat CPU  0 instructions:  123000002 cycles:  793569602 heartbeat IPC: 0.09542 cumulative IPC: 0.09709 (Simulation time: 0 hr 21 min 59 sec) 
+Heartbeat CPU  0 instructions:  124000000 cycles:  803829839 heartbeat IPC: 0.09746 cumulative IPC: 0.09710 (Simulation time: 0 hr 22 min 8 sec) 
+Heartbeat CPU  0 instructions:  125000003 cycles:  814605080 heartbeat IPC: 0.09281 cumulative IPC: 0.09704 (Simulation time: 0 hr 22 min 16 sec) 
+Heartbeat CPU  0 instructions:  126000003 cycles:  825556919 heartbeat IPC: 0.09131 cumulative IPC: 0.09696 (Simulation time: 0 hr 22 min 25 sec) 
+Heartbeat CPU  0 instructions:  127000000 cycles:  836784108 heartbeat IPC: 0.08907 cumulative IPC: 0.09685 (Simulation time: 0 hr 22 min 34 sec) 
+Heartbeat CPU  0 instructions:  128000000 cycles:  848258736 heartbeat IPC: 0.08715 cumulative IPC: 0.09671 (Simulation time: 0 hr 22 min 44 sec) 
+Heartbeat CPU  0 instructions:  129000001 cycles:  858687971 heartbeat IPC: 0.09588 cumulative IPC: 0.09670 (Simulation time: 0 hr 22 min 52 sec) 
+Heartbeat CPU  0 instructions:  130000000 cycles:  868724021 heartbeat IPC: 0.09964 cumulative IPC: 0.09673 (Simulation time: 0 hr 23 min 0 sec) 
+Heartbeat CPU  0 instructions:  131000000 cycles:  878494928 heartbeat IPC: 0.10234 cumulative IPC: 0.09680 (Simulation time: 0 hr 23 min 8 sec) 
+Heartbeat CPU  0 instructions:  132000000 cycles:  888278990 heartbeat IPC: 0.10221 cumulative IPC: 0.09686 (Simulation time: 0 hr 23 min 19 sec) 
+Heartbeat CPU  0 instructions:  133000000 cycles:  898052484 heartbeat IPC: 0.10232 cumulative IPC: 0.09692 (Simulation time: 0 hr 23 min 26 sec) 
+Heartbeat CPU  0 instructions:  134000000 cycles:  907863122 heartbeat IPC: 0.10193 cumulative IPC: 0.09698 (Simulation time: 0 hr 23 min 34 sec) 
+Heartbeat CPU  0 instructions:  135000002 cycles:  917963801 heartbeat IPC: 0.09900 cumulative IPC: 0.09700 (Simulation time: 0 hr 23 min 43 sec) 
+Heartbeat CPU  0 instructions:  136000000 cycles:  928020205 heartbeat IPC: 0.09944 cumulative IPC: 0.09703 (Simulation time: 0 hr 23 min 51 sec) 
+Heartbeat CPU  0 instructions:  137000002 cycles:  938123992 heartbeat IPC: 0.09897 cumulative IPC: 0.09705 (Simulation time: 0 hr 23 min 59 sec) 
+Heartbeat CPU  0 instructions:  138000000 cycles:  948205598 heartbeat IPC: 0.09919 cumulative IPC: 0.09708 (Simulation time: 0 hr 24 min 7 sec) 
+Heartbeat CPU  0 instructions:  139000002 cycles:  958249068 heartbeat IPC: 0.09957 cumulative IPC: 0.09710 (Simulation time: 0 hr 24 min 16 sec) 
+Heartbeat CPU  0 instructions:  140000000 cycles:  969429144 heartbeat IPC: 0.08944 cumulative IPC: 0.09701 (Simulation time: 0 hr 24 min 25 sec) 
+Heartbeat CPU  0 instructions:  141000000 cycles:  979785270 heartbeat IPC: 0.09656 cumulative IPC: 0.09701 (Simulation time: 0 hr 24 min 33 sec) 
+Heartbeat CPU  0 instructions:  142000002 cycles:  989299722 heartbeat IPC: 0.10510 cumulative IPC: 0.09709 (Simulation time: 0 hr 24 min 41 sec) 
+Heartbeat CPU  0 instructions:  143000000 cycles:  999286731 heartbeat IPC: 0.10013 cumulative IPC: 0.09712 (Simulation time: 0 hr 24 min 50 sec) 
+Heartbeat CPU  0 instructions:  144000000 cycles: 1009510654 heartbeat IPC: 0.09781 cumulative IPC: 0.09713 (Simulation time: 0 hr 24 min 58 sec) 
+Heartbeat CPU  0 instructions:  145000002 cycles: 1019709717 heartbeat IPC: 0.09805 cumulative IPC: 0.09714 (Simulation time: 0 hr 25 min 6 sec) 
+Heartbeat CPU  0 instructions:  146000001 cycles: 1030746585 heartbeat IPC: 0.09061 cumulative IPC: 0.09706 (Simulation time: 0 hr 25 min 13 sec) 
+Heartbeat CPU  0 instructions:  147000000 cycles: 1040777723 heartbeat IPC: 0.09969 cumulative IPC: 0.09709 (Simulation time: 0 hr 25 min 22 sec) 
+Heartbeat CPU  0 instructions:  148000000 cycles: 1050603527 heartbeat IPC: 0.10177 cumulative IPC: 0.09714 (Simulation time: 0 hr 25 min 29 sec) 
+Heartbeat CPU  0 instructions:  149000000 cycles: 1060384044 heartbeat IPC: 0.10224 cumulative IPC: 0.09719 (Simulation time: 0 hr 25 min 36 sec) 
+Heartbeat CPU  0 instructions:  150000003 cycles: 1070524372 heartbeat IPC: 0.09862 cumulative IPC: 0.09720 (Simulation time: 0 hr 25 min 43 sec) 
+Heartbeat CPU  0 instructions:  151000000 cycles: 1081306106 heartbeat IPC: 0.09275 cumulative IPC: 0.09715 (Simulation time: 0 hr 25 min 52 sec) 
+Heartbeat CPU  0 instructions:  152000000 cycles: 1091344132 heartbeat IPC: 0.09962 cumulative IPC: 0.09718 (Simulation time: 0 hr 25 min 59 sec) 
+Heartbeat CPU  0 instructions:  153000001 cycles: 1101517362 heartbeat IPC: 0.09830 cumulative IPC: 0.09719 (Simulation time: 0 hr 26 min 6 sec) 
+Heartbeat CPU  0 instructions:  154000001 cycles: 1111812765 heartbeat IPC: 0.09713 cumulative IPC: 0.09719 (Simulation time: 0 hr 26 min 13 sec) 
+Heartbeat CPU  0 instructions:  155000000 cycles: 1122095530 heartbeat IPC: 0.09725 cumulative IPC: 0.09719 (Simulation time: 0 hr 26 min 21 sec) 
+Heartbeat CPU  0 instructions:  156000000 cycles: 1132203343 heartbeat IPC: 0.09893 cumulative IPC: 0.09720 (Simulation time: 0 hr 26 min 30 sec) 
+Heartbeat CPU  0 instructions:  157000001 cycles: 1142752530 heartbeat IPC: 0.09479 cumulative IPC: 0.09718 (Simulation time: 0 hr 26 min 37 sec) 
+Heartbeat CPU  0 instructions:  158000003 cycles: 1153859789 heartbeat IPC: 0.09003 cumulative IPC: 0.09711 (Simulation time: 0 hr 26 min 44 sec) 
+Heartbeat CPU  0 instructions:  159000001 cycles: 1164623539 heartbeat IPC: 0.09290 cumulative IPC: 0.09707 (Simulation time: 0 hr 26 min 51 sec) 
+Heartbeat CPU  0 instructions:  160000000 cycles: 1175678058 heartbeat IPC: 0.09046 cumulative IPC: 0.09700 (Simulation time: 0 hr 26 min 59 sec) 
+Heartbeat CPU  0 instructions:  161000000 cycles: 1186295280 heartbeat IPC: 0.09419 cumulative IPC: 0.09698 (Simulation time: 0 hr 27 min 6 sec) 
+Heartbeat CPU  0 instructions:  162000000 cycles: 1197847983 heartbeat IPC: 0.08656 cumulative IPC: 0.09687 (Simulation time: 0 hr 27 min 13 sec) 
+Heartbeat CPU  0 instructions:  163000001 cycles: 1209029276 heartbeat IPC: 0.08944 cumulative IPC: 0.09680 (Simulation time: 0 hr 27 min 21 sec) 
+Heartbeat CPU  0 instructions:  164000000 cycles: 1220778007 heartbeat IPC: 0.08512 cumulative IPC: 0.09669 (Simulation time: 0 hr 27 min 28 sec) 
+Heartbeat CPU  0 instructions:  165000000 cycles: 1231521846 heartbeat IPC: 0.09308 cumulative IPC: 0.09665 (Simulation time: 0 hr 27 min 35 sec) 
+Heartbeat CPU  0 instructions:  166000001 cycles: 1241541724 heartbeat IPC: 0.09980 cumulative IPC: 0.09668 (Simulation time: 0 hr 27 min 42 sec) 
+Heartbeat CPU  0 instructions:  167000000 cycles: 1252748619 heartbeat IPC: 0.08923 cumulative IPC: 0.09661 (Simulation time: 0 hr 27 min 49 sec) 
+Heartbeat CPU  0 instructions:  168000000 cycles: 1263241668 heartbeat IPC: 0.09530 cumulative IPC: 0.09660 (Simulation time: 0 hr 27 min 54 sec) 
+Heartbeat CPU  0 instructions:  169000002 cycles: 1273655748 heartbeat IPC: 0.09602 cumulative IPC: 0.09660 (Simulation time: 0 hr 28 min 0 sec) 
+Heartbeat CPU  0 instructions:  170000000 cycles: 1283816344 heartbeat IPC: 0.09842 cumulative IPC: 0.09661 (Simulation time: 0 hr 28 min 8 sec) 
+Heartbeat CPU  0 instructions:  171000001 cycles: 1293568312 heartbeat IPC: 0.10254 cumulative IPC: 0.09666 (Simulation time: 0 hr 28 min 13 sec) 
+Heartbeat CPU  0 instructions:  172000000 cycles: 1303626507 heartbeat IPC: 0.09942 cumulative IPC: 0.09668 (Simulation time: 0 hr 28 min 19 sec) 
+Heartbeat CPU  0 instructions:  173000002 cycles: 1313909158 heartbeat IPC: 0.09725 cumulative IPC: 0.09668 (Simulation time: 0 hr 28 min 25 sec) 
+Heartbeat CPU  0 instructions:  174000000 cycles: 1325305669 heartbeat IPC: 0.08775 cumulative IPC: 0.09660 (Simulation time: 0 hr 28 min 33 sec) 
+Heartbeat CPU  0 instructions:  175000002 cycles: 1336707254 heartbeat IPC: 0.08771 cumulative IPC: 0.09653 (Simulation time: 0 hr 28 min 39 sec) 
+Heartbeat CPU  0 instructions:  176000000 cycles: 1347825470 heartbeat IPC: 0.08994 cumulative IPC: 0.09647 (Simulation time: 0 hr 28 min 45 sec) 
+Heartbeat CPU  0 instructions:  177000001 cycles: 1358579563 heartbeat IPC: 0.09299 cumulative IPC: 0.09644 (Simulation time: 0 hr 28 min 52 sec) 
+Heartbeat CPU  0 instructions:  178000000 cycles: 1369296445 heartbeat IPC: 0.09331 cumulative IPC: 0.09642 (Simulation time: 0 hr 28 min 59 sec) 
+Heartbeat CPU  0 instructions:  179000000 cycles: 1379738661 heartbeat IPC: 0.09577 cumulative IPC: 0.09641 (Simulation time: 0 hr 29 min 5 sec) 
+Heartbeat CPU  0 instructions:  180000000 cycles: 1391066379 heartbeat IPC: 0.08828 cumulative IPC: 0.09634 (Simulation time: 0 hr 29 min 11 sec) 
+Heartbeat CPU  0 instructions:  181000000 cycles: 1402303185 heartbeat IPC: 0.08899 cumulative IPC: 0.09628 (Simulation time: 0 hr 29 min 19 sec) 
+Heartbeat CPU  0 instructions:  182000000 cycles: 1413964111 heartbeat IPC: 0.08576 cumulative IPC: 0.09619 (Simulation time: 0 hr 29 min 26 sec) 
+Heartbeat CPU  0 instructions:  183000000 cycles: 1425225204 heartbeat IPC: 0.08880 cumulative IPC: 0.09613 (Simulation time: 0 hr 29 min 32 sec) 
+Heartbeat CPU  0 instructions:  184000000 cycles: 1436989530 heartbeat IPC: 0.08500 cumulative IPC: 0.09604 (Simulation time: 0 hr 29 min 38 sec) 
+Heartbeat CPU  0 instructions:  185000000 cycles: 1448347305 heartbeat IPC: 0.08805 cumulative IPC: 0.09597 (Simulation time: 0 hr 29 min 47 sec) 
+Heartbeat CPU  0 instructions:  186000000 cycles: 1459443656 heartbeat IPC: 0.09012 cumulative IPC: 0.09593 (Simulation time: 0 hr 29 min 53 sec) 
+Heartbeat CPU  0 instructions:  187000001 cycles: 1470443834 heartbeat IPC: 0.09091 cumulative IPC: 0.09589 (Simulation time: 0 hr 29 min 59 sec) 
+Heartbeat CPU  0 instructions:  188000000 cycles: 1481151345 heartbeat IPC: 0.09339 cumulative IPC: 0.09587 (Simulation time: 0 hr 30 min 5 sec) 
+Heartbeat CPU  0 instructions:  189000001 cycles: 1492253385 heartbeat IPC: 0.09007 cumulative IPC: 0.09583 (Simulation time: 0 hr 30 min 12 sec) 
+Heartbeat CPU  0 instructions:  190000002 cycles: 1503643896 heartbeat IPC: 0.08779 cumulative IPC: 0.09576 (Simulation time: 0 hr 30 min 18 sec) 
+Heartbeat CPU  0 instructions:  191000003 cycles: 1515591317 heartbeat IPC: 0.08370 cumulative IPC: 0.09567 (Simulation time: 0 hr 30 min 24 sec) 
+Heartbeat CPU  0 instructions:  192000000 cycles: 1527866978 heartbeat IPC: 0.08146 cumulative IPC: 0.09555 (Simulation time: 0 hr 30 min 33 sec) 
+Heartbeat CPU  0 instructions:  193000001 cycles: 1538795690 heartbeat IPC: 0.09150 cumulative IPC: 0.09552 (Simulation time: 0 hr 30 min 39 sec) 
+Heartbeat CPU  0 instructions:  194000001 cycles: 1550057187 heartbeat IPC: 0.08880 cumulative IPC: 0.09547 (Simulation time: 0 hr 30 min 45 sec) 
+Heartbeat CPU  0 instructions:  195000002 cycles: 1561262536 heartbeat IPC: 0.08924 cumulative IPC: 0.09542 (Simulation time: 0 hr 30 min 51 sec) 
+Heartbeat CPU  0 instructions:  196000000 cycles: 1571579334 heartbeat IPC: 0.09693 cumulative IPC: 0.09543 (Simulation time: 0 hr 30 min 59 sec) 
+Heartbeat CPU  0 instructions:  197000000 cycles: 1582469963 heartbeat IPC: 0.09182 cumulative IPC: 0.09541 (Simulation time: 0 hr 31 min 4 sec) 
+Heartbeat CPU  0 instructions:  198000001 cycles: 1593622529 heartbeat IPC: 0.08967 cumulative IPC: 0.09537 (Simulation time: 0 hr 31 min 10 sec) 
+Heartbeat CPU  0 instructions:  199000002 cycles: 1605128016 heartbeat IPC: 0.08692 cumulative IPC: 0.09530 (Simulation time: 0 hr 31 min 17 sec) 
+Heartbeat CPU  0 instructions:  200000000 cycles: 1616420215 heartbeat IPC: 0.08856 cumulative IPC: 0.09526 (Simulation time: 0 hr 31 min 25 sec) 
+Heartbeat CPU  0 instructions:  201000001 cycles: 1627592705 heartbeat IPC: 0.08951 cumulative IPC: 0.09522 (Simulation time: 0 hr 31 min 30 sec) 
+Heartbeat CPU  0 instructions:  202000000 cycles: 1639609043 heartbeat IPC: 0.08322 cumulative IPC: 0.09512 (Simulation time: 0 hr 31 min 37 sec) 
+Heartbeat CPU  0 instructions:  203000000 cycles: 1650986754 heartbeat IPC: 0.08789 cumulative IPC: 0.09507 (Simulation time: 0 hr 31 min 45 sec) 
+Heartbeat CPU  0 instructions:  204000000 cycles: 1663234497 heartbeat IPC: 0.08165 cumulative IPC: 0.09497 (Simulation time: 0 hr 31 min 52 sec) 
+Heartbeat CPU  0 instructions:  205000000 cycles: 1674761647 heartbeat IPC: 0.08675 cumulative IPC: 0.09491 (Simulation time: 0 hr 31 min 58 sec) 
+Heartbeat CPU  0 instructions:  206000000 cycles: 1686114449 heartbeat IPC: 0.08808 cumulative IPC: 0.09487 (Simulation time: 0 hr 32 min 5 sec) 
+Heartbeat CPU  0 instructions:  207000000 cycles: 1696753850 heartbeat IPC: 0.09399 cumulative IPC: 0.09486 (Simulation time: 0 hr 32 min 12 sec) 
+Heartbeat CPU  0 instructions:  208000000 cycles: 1707981247 heartbeat IPC: 0.08907 cumulative IPC: 0.09482 (Simulation time: 0 hr 32 min 18 sec) 
+Heartbeat CPU  0 instructions:  209000000 cycles: 1718958804 heartbeat IPC: 0.09109 cumulative IPC: 0.09480 (Simulation time: 0 hr 32 min 24 sec) 
+Heartbeat CPU  0 instructions:  210000002 cycles: 1730015695 heartbeat IPC: 0.09044 cumulative IPC: 0.09477 (Simulation time: 0 hr 32 min 30 sec) 
+Heartbeat CPU  0 instructions:  211000002 cycles: 1741287881 heartbeat IPC: 0.08871 cumulative IPC: 0.09473 (Simulation time: 0 hr 32 min 38 sec) 
+Heartbeat CPU  0 instructions:  212000000 cycles: 1752270675 heartbeat IPC: 0.09105 cumulative IPC: 0.09471 (Simulation time: 0 hr 32 min 43 sec) 
+Heartbeat CPU  0 instructions:  213000000 cycles: 1763919711 heartbeat IPC: 0.08584 cumulative IPC: 0.09465 (Simulation time: 0 hr 32 min 49 sec) 
+Heartbeat CPU  0 instructions:  214000001 cycles: 1775104254 heartbeat IPC: 0.08941 cumulative IPC: 0.09461 (Simulation time: 0 hr 32 min 58 sec) 
+Heartbeat CPU  0 instructions:  215000000 cycles: 1785374383 heartbeat IPC: 0.09737 cumulative IPC: 0.09463 (Simulation time: 0 hr 33 min 3 sec) 
+Heartbeat CPU  0 instructions:  216000000 cycles: 1796000734 heartbeat IPC: 0.09411 cumulative IPC: 0.09463 (Simulation time: 0 hr 33 min 9 sec) 
+Heartbeat CPU  0 instructions:  217000000 cycles: 1807885051 heartbeat IPC: 0.08414 cumulative IPC: 0.09455 (Simulation time: 0 hr 33 min 15 sec) 
+Heartbeat CPU  0 instructions:  218000000 cycles: 1818987104 heartbeat IPC: 0.09007 cumulative IPC: 0.09453 (Simulation time: 0 hr 33 min 23 sec) 
+Heartbeat CPU  0 instructions:  219000000 cycles: 1830494919 heartbeat IPC: 0.08690 cumulative IPC: 0.09448 (Simulation time: 0 hr 33 min 29 sec) 
+Heartbeat CPU  0 instructions:  220000000 cycles: 1841387064 heartbeat IPC: 0.09181 cumulative IPC: 0.09446 (Simulation time: 0 hr 33 min 35 sec) 
+Heartbeat CPU  0 instructions:  221000001 cycles: 1851691614 heartbeat IPC: 0.09704 cumulative IPC: 0.09448 (Simulation time: 0 hr 33 min 41 sec) 
+Heartbeat CPU  0 instructions:  222000000 cycles: 1861669128 heartbeat IPC: 0.10023 cumulative IPC: 0.09451 (Simulation time: 0 hr 33 min 48 sec) 
+Heartbeat CPU  0 instructions:  223000000 cycles: 1871918196 heartbeat IPC: 0.09757 cumulative IPC: 0.09452 (Simulation time: 0 hr 33 min 54 sec) 
+Heartbeat CPU  0 instructions:  224000000 cycles: 1882873061 heartbeat IPC: 0.09128 cumulative IPC: 0.09451 (Simulation time: 0 hr 34 min 0 sec) 
+Heartbeat CPU  0 instructions:  225000000 cycles: 1894077904 heartbeat IPC: 0.08925 cumulative IPC: 0.09447 (Simulation time: 0 hr 34 min 6 sec) 
+Heartbeat CPU  0 instructions:  226000000 cycles: 1905340995 heartbeat IPC: 0.08879 cumulative IPC: 0.09444 (Simulation time: 0 hr 34 min 14 sec) 
+Heartbeat CPU  0 instructions:  227000002 cycles: 1917608906 heartbeat IPC: 0.08151 cumulative IPC: 0.09435 (Simulation time: 0 hr 34 min 20 sec) 
+Heartbeat CPU  0 instructions:  228000000 cycles: 1929712195 heartbeat IPC: 0.08262 cumulative IPC: 0.09428 (Simulation time: 0 hr 34 min 27 sec) 
+Heartbeat CPU  0 instructions:  229000001 cycles: 1941701086 heartbeat IPC: 0.08341 cumulative IPC: 0.09421 (Simulation time: 0 hr 34 min 35 sec) 
+Heartbeat CPU  0 instructions:  230000000 cycles: 1953836384 heartbeat IPC: 0.08240 cumulative IPC: 0.09414 (Simulation time: 0 hr 34 min 42 sec) 
+Heartbeat CPU  0 instructions:  231000002 cycles: 1965928985 heartbeat IPC: 0.08270 cumulative IPC: 0.09406 (Simulation time: 0 hr 34 min 48 sec) 
+Heartbeat CPU  0 instructions:  232000000 cycles: 1977676555 heartbeat IPC: 0.08512 cumulative IPC: 0.09401 (Simulation time: 0 hr 34 min 56 sec) 
+Heartbeat CPU  0 instructions:  233000001 cycles: 1988036227 heartbeat IPC: 0.09653 cumulative IPC: 0.09402 (Simulation time: 0 hr 35 min 2 sec) 
+Heartbeat CPU  0 instructions:  234000003 cycles: 1998031067 heartbeat IPC: 0.10005 cumulative IPC: 0.09405 (Simulation time: 0 hr 35 min 7 sec) 
+Heartbeat CPU  0 instructions:  235000000 cycles: 2008316792 heartbeat IPC: 0.09722 cumulative IPC: 0.09407 (Simulation time: 0 hr 35 min 13 sec) 
+Heartbeat CPU  0 instructions:  236000000 cycles: 2020286857 heartbeat IPC: 0.08354 cumulative IPC: 0.09401 (Simulation time: 0 hr 35 min 21 sec) 
+Heartbeat CPU  0 instructions:  237000003 cycles: 2032178049 heartbeat IPC: 0.08410 cumulative IPC: 0.09395 (Simulation time: 0 hr 35 min 28 sec) 
+Heartbeat CPU  0 instructions:  238000003 cycles: 2042491784 heartbeat IPC: 0.09696 cumulative IPC: 0.09396 (Simulation time: 0 hr 35 min 33 sec) 
+Heartbeat CPU  0 instructions:  239000003 cycles: 2053057063 heartbeat IPC: 0.09465 cumulative IPC: 0.09397 (Simulation time: 0 hr 35 min 39 sec) 
+Heartbeat CPU  0 instructions:  240000000 cycles: 2063563809 heartbeat IPC: 0.09518 cumulative IPC: 0.09397 (Simulation time: 0 hr 35 min 47 sec) 
+Heartbeat CPU  0 instructions:  241000000 cycles: 2074306047 heartbeat IPC: 0.09309 cumulative IPC: 0.09397 (Simulation time: 0 hr 35 min 53 sec) 
+Heartbeat CPU  0 instructions:  242000000 cycles: 2084864116 heartbeat IPC: 0.09471 cumulative IPC: 0.09397 (Simulation time: 0 hr 35 min 58 sec) 
+Heartbeat CPU  0 instructions:  243000002 cycles: 2095031197 heartbeat IPC: 0.09836 cumulative IPC: 0.09399 (Simulation time: 0 hr 36 min 4 sec) 
+Heartbeat CPU  0 instructions:  244000000 cycles: 2105903048 heartbeat IPC: 0.09198 cumulative IPC: 0.09398 (Simulation time: 0 hr 36 min 12 sec) 
+Heartbeat CPU  0 instructions:  245000001 cycles: 2116626258 heartbeat IPC: 0.09326 cumulative IPC: 0.09398 (Simulation time: 0 hr 36 min 17 sec) 
+Heartbeat CPU  0 instructions:  246000000 cycles: 2127962568 heartbeat IPC: 0.08821 cumulative IPC: 0.09395 (Simulation time: 0 hr 36 min 23 sec) 
+Heartbeat CPU  0 instructions:  247000001 cycles: 2139447392 heartbeat IPC: 0.08707 cumulative IPC: 0.09391 (Simulation time: 0 hr 36 min 30 sec) 
+Heartbeat CPU  0 instructions:  248000000 cycles: 2151180848 heartbeat IPC: 0.08523 cumulative IPC: 0.09386 (Simulation time: 0 hr 36 min 38 sec) 
+Heartbeat CPU  0 instructions:  249000000 cycles: 2162060137 heartbeat IPC: 0.09192 cumulative IPC: 0.09385 (Simulation time: 0 hr 36 min 44 sec) 
+Heartbeat CPU  0 instructions:  250000002 cycles: 2172208469 heartbeat IPC: 0.09854 cumulative IPC: 0.09387 (Simulation time: 0 hr 36 min 49 sec) 
+Finished CPU 0 instructions: 200000001 cycles: 2130499302 cumulative IPC: 0.09387 (Simulation time: 0 hr 36 min 49 sec) 
+
+ChampSim completed all CPUs
+
+[ROI Statistics]
+Core_0_instructions 200000001
+Core_0_cycles 2130499302
+Core_0_IPC 0.09387
+
+Core_0_branch_prediction_accuracy 96.66411
+Core_0_branch_MPKI 9.97024
+Core_0_average_ROB_occupancy_at_mispredict 71.28116
+
+Core_0_L1D_total_access 44969065
+Core_0_L1D_total_hit 13765925
+Core_0_L1D_total_miss 31203140
+Core_0_L1D_loads 41698936
+Core_0_L1D_load_hit 10556597
+Core_0_L1D_load_miss 31142339
+Core_0_L1D_RFOs 3270129
+Core_0_L1D_RFO_hit 3209328
+Core_0_L1D_RFO_miss 60801
+Core_0_L1D_prefetches 0
+Core_0_L1D_prefetch_hit 0
+Core_0_L1D_prefetch_miss 0
+Core_0_L1D_writebacks 0
+Core_0_L1D_writeback_hit 0
+Core_0_L1D_writeback_miss 0
+Core_0_L1D_prefetch_requested 0
+Core_0_L1D_prefetch_dropped 0
+Core_0_L1D_prefetch_issued 0
+Core_0_L1D_prefetch_filled 0
+Core_0_L1D_prefetch_useful 0
+Core_0_L1D_prefetch_useless 0
+Core_0_L1D_prefetch_late 0
+Core_0_L1D_average_miss_latency 158.22683
+
+Core_0_L1D_rq_access 71255076
+Core_0_L1D_rq_forward 0
+Core_0_L1D_rq_merged 28606239
+Core_0_L1D_rq_to_cache 42632753
+Core_0_L1D_rq_full 0
+
+Core_0_L1D_wq_access 3578449
+Core_0_L1D_wq_forward 16084
+Core_0_L1D_wq_merged 106831
+Core_0_L1D_wq_to_cache 3471618
+Core_0_L1D_wq_full 0
+
+Core_0_L1D_pq_access 0
+Core_0_L1D_pq_forward 0
+Core_0_L1D_pq_merged 0
+Core_0_L1D_pq_to_cache 0
+Core_0_L1D_pq_full 0
+
+Core_0_L1D_acc_epochs 2098299
+Core_0_L1D_acc_level_0 2098299
+Core_0_L1D_acc_level_1 0
+Core_0_L1D_acc_level_2 0
+Core_0_L1D_acc_level_3 0
+Core_0_L1D_acc_level_4 0
+Core_0_L1D_acc_level_5 0
+Core_0_L1D_acc_level_6 0
+Core_0_L1D_acc_level_7 0
+Core_0_L1D_acc_level_8 0
+Core_0_L1D_acc_level_9 0
+
+Core_0_L1I_total_access 36043664
+Core_0_L1I_total_hit 36043664
+Core_0_L1I_total_miss 0
+Core_0_L1I_loads 36043664
+Core_0_L1I_load_hit 36043664
+Core_0_L1I_load_miss 0
+Core_0_L1I_RFOs 0
+Core_0_L1I_RFO_hit 0
+Core_0_L1I_RFO_miss 0
+Core_0_L1I_prefetches 0
+Core_0_L1I_prefetch_hit 0
+Core_0_L1I_prefetch_miss 0
+Core_0_L1I_writebacks 0
+Core_0_L1I_writeback_hit 0
+Core_0_L1I_writeback_miss 0
+Core_0_L1I_prefetch_requested 0
+Core_0_L1I_prefetch_dropped 0
+Core_0_L1I_prefetch_issued 0
+Core_0_L1I_prefetch_filled 0
+Core_0_L1I_prefetch_useful 0
+Core_0_L1I_prefetch_useless 0
+Core_0_L1I_prefetch_late 0
+Core_0_L1I_average_miss_latency -nan
+
+Core_0_L1I_rq_access 200000217
+Core_0_L1I_rq_forward 0
+Core_0_L1I_rq_merged 163956553
+Core_0_L1I_rq_to_cache 36043664
+Core_0_L1I_rq_full 0
+
+Core_0_L1I_wq_access 0
+Core_0_L1I_wq_forward 0
+Core_0_L1I_wq_merged 0
+Core_0_L1I_wq_to_cache 0
+Core_0_L1I_wq_full 0
+
+Core_0_L1I_pq_access 0
+Core_0_L1I_pq_forward 0
+Core_0_L1I_pq_merged 0
+Core_0_L1I_pq_to_cache 0
+Core_0_L1I_pq_full 0
+
+Core_0_L1I_acc_epochs 2098299
+Core_0_L1I_acc_level_0 2098299
+Core_0_L1I_acc_level_1 0
+Core_0_L1I_acc_level_2 0
+Core_0_L1I_acc_level_3 0
+Core_0_L1I_acc_level_4 0
+Core_0_L1I_acc_level_5 0
+Core_0_L1I_acc_level_6 0
+Core_0_L1I_acc_level_7 0
+Core_0_L1I_acc_level_8 0
+Core_0_L1I_acc_level_9 0
+
+Core_0_L2C_total_access 52160290
+Core_0_L2C_total_hit 21693842
+Core_0_L2C_total_miss 30466448
+Core_0_L2C_loads 31142281
+Core_0_L2C_load_hit 12733473
+Core_0_L2C_load_miss 18408808
+Core_0_L2C_RFOs 60801
+Core_0_L2C_RFO_hit 1415
+Core_0_L2C_RFO_miss 59386
+Core_0_L2C_prefetches 20441589
+Core_0_L2C_prefetch_hit 8443368
+Core_0_L2C_prefetch_miss 11998221
+Core_0_L2C_writebacks 515619
+Core_0_L2C_writeback_hit 515586
+Core_0_L2C_writeback_miss 33
+Core_0_L2C_prefetch_requested 220264224
+Core_0_L2C_prefetch_dropped 0
+Core_0_L2C_prefetch_issued 220264224
+Core_0_L2C_prefetch_filled 14772023
+Core_0_L2C_prefetch_useful 13501072
+Core_0_L2C_prefetch_useless 1270746
+Core_0_L2C_prefetch_late 508256
+Core_0_L2C_average_miss_latency 309.21459
+
+Core_0_L2C_rq_access 31203140
+Core_0_L2C_rq_forward 0
+Core_0_L2C_rq_merged 0
+Core_0_L2C_rq_to_cache 31203082
+Core_0_L2C_rq_full 0
+
+Core_0_L2C_wq_access 515619
+Core_0_L2C_wq_forward 60
+Core_0_L2C_wq_merged 0
+Core_0_L2C_wq_to_cache 515619
+Core_0_L2C_wq_full 0
+
+Core_0_L2C_pq_access 220264224
+Core_0_L2C_pq_forward 0
+Core_0_L2C_pq_merged 0
+Core_0_L2C_pq_to_cache 220264222
+Core_0_L2C_pq_full 0
+
+Core_0_L2C_acc_epochs 2098299
+Core_0_L2C_acc_level_0 242569
+Core_0_L2C_acc_level_1 150831
+Core_0_L2C_acc_level_2 126542
+Core_0_L2C_acc_level_3 109760
+Core_0_L2C_acc_level_4 92533
+Core_0_L2C_acc_level_5 99976
+Core_0_L2C_acc_level_6 83379
+Core_0_L2C_acc_level_7 79130
+Core_0_L2C_acc_level_8 76733
+Core_0_L2C_acc_level_9 1036846
+
+Core_0_LLC_total_access 208769829
+Core_0_LLC_total_hit 112176640
+Core_0_LLC_total_miss 96593189
+Core_0_LLC_loads 17930848
+Core_0_LLC_load_hit 9063915
+Core_0_LLC_load_miss 8866933
+Core_0_LLC_RFOs 59383
+Core_0_LLC_RFO_hit 10662
+Core_0_LLC_RFO_miss 48721
+Core_0_LLC_prefetches 190283045
+Core_0_LLC_prefetch_hit 102804114
+Core_0_LLC_prefetch_miss 87478931
+Core_0_LLC_writebacks 496553
+Core_0_LLC_writeback_hit 297949
+Core_0_LLC_writeback_miss 198604
+Core_0_LLC_prefetch_requested 0
+Core_0_LLC_prefetch_dropped 0
+Core_0_LLC_prefetch_issued 0
+Core_0_LLC_prefetch_filled 96457591
+Core_0_LLC_prefetch_useful 3700522
+Core_0_LLC_prefetch_useless 92730690
+Core_0_LLC_prefetch_late 49786
+Core_0_LLC_average_miss_latency 468.12446
+
+Core_0_LLC_rq_access 17990233
+Core_0_LLC_rq_forward 0
+Core_0_LLC_rq_merged 0
+Core_0_LLC_rq_to_cache 17990231
+Core_0_LLC_rq_full 0
+
+Core_0_LLC_wq_access 496553
+Core_0_LLC_wq_forward 11
+Core_0_LLC_wq_merged 0
+Core_0_LLC_wq_to_cache 496553
+Core_0_LLC_wq_full 0
+
+Core_0_LLC_pq_access 209969541
+Core_0_LLC_pq_forward 0
+Core_0_LLC_pq_merged 0
+Core_0_LLC_pq_to_cache 209969531
+Core_0_LLC_pq_full 0
+
+Core_0_LLC_acc_epochs 2121298
+Core_0_LLC_acc_level_0 2033882
+Core_0_LLC_acc_level_1 53785
+Core_0_LLC_acc_level_2 7209
+Core_0_LLC_acc_level_3 4189
+Core_0_LLC_acc_level_4 2692
+Core_0_LLC_acc_level_5 3045
+Core_0_LLC_acc_level_6 1844
+Core_0_LLC_acc_level_7 1486
+Core_0_LLC_acc_level_8 1234
+Core_0_LLC_acc_level_9 11932
+
+Core_0_major_page_fault 0
+Core_0_minor_page_fault 218953
+
+[Bingo] PHT Access: 21305948
+[Bingo] PHT Hit PC+Addr: 1922480
+[Bingo] PHT Hit PC+Offs: 19178390
+[Bingo] PHT Miss: 205078
+[Bingo] Prefetch PC+Addr: 0
+[Bingo] Prefetch PC+Offs: 0
+[Bingo] Useful PC+Addr: 0
+[Bingo] Useful PC+Offs: 0
+[Bingo] Useless PC+Addr: 0
+[Bingo] Useless PC+Offs: 0
+[Bingo] L1 Prefetch per Region: 0.00000
+[Bingo] L2 Prefetch per Region: 1.85584
+[Bingo] L3 Prefetch per Region: 17.39291
+[Bingo] No Prefetch per Region: 12.75125
+[Bingo] Number of Voters Mean: 14.52246
+[Bingo] Number of Voters SD: 2.11324
+
+Channel_0_RQ_row_buffer_hit 45283844
+Channel_0_RQ_row_buffer_miss 51067213
+Channel_0_WQ_row_buffer_hit 108475
+Channel_0_WQ_row_buffer_miss 299467
+Channel_0_WQ_full 0
+Channel_0_dbus_congested 63613422
+
+avg_congested_cycle 9
+
+DRAM_bw_pochs 8485190
+DRAM_bw_level_0 712567
+DRAM_bw_level_1 973925
+DRAM_bw_level_2 1231521
+DRAM_bw_level_3 5567177

@@ -249,5 +249,3 @@ public:
 };
 
 #endif /* RICH_H */
-
-#endif /* RICH_H */
