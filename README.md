@@ -1,235 +1,143 @@
-<p align="center">
-  <a href="https://github.com/CMU-SAFARI/Pythia">
-    <img src="logo.png" alt="Logo" width="424.8" height="120">
-  </a>
-  <h3 align="center">A Customizable Hardware Prefetching Framework Using Online Reinforcement Learning
-  </h3>
-</p>
+# RICH Prefetcher Implementation in ChampSim
 
-<p align="center">
-    <a href="https://github.com/CMU-SAFARI/Pythia/blob/master/LICENSE">
-        <img alt="GitHub" src="https://img.shields.io/badge/License-MIT-yellow.svg">
-    </a>
-    <a href="https://github.com/CMU-SAFARI/Pythia/releases">
-        <img alt="GitHub release" src="https://img.shields.io/github/release/CMU-SAFARI/Pythia">
-    </a>
-    <a href="https://doi.org/10.5281/zenodo.5520125"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.5520125.svg" alt="DOI"></a>
-</p>
+Reimplementation and architectural evaluation of the **RICH** spatial prefetcher (**2KB** and **4KB + 2KB** memory regions) in ChampSim, compared against **No Prefetcher**, **SMS** *(ISCA'06)*, and **Bingo** *(HPCA'19)*.
 
-<!-- ## Update
-### Aug 13th, 2021
-It has been brought to our attention that the Ligra and PARSEC-2.1 traces required to evaluate the artifact are not correctly getting downloaded using the `download_traces.pl` script. For now, we ask the reader to download **all** Ligra and PARSEC-2.1 traces (~10 GB) by (1) clicking on the mega link (see [Section 5](https://github.com/CMU-SAFARI/Pythia#more-traces)), and (2) clicking on "Download as ZIP" option. We are working with megatools developer to resolve the issue soon.  -->
+---
 
-<details open="open">
-  <summary>Table of Contents</summary>
-  <ol>
-    <li><a href="#what-is-pythia">What is Pythia?</a></li>
-    <li><a href="#about-the-framework">About the Framework</a></li>
-    <li><a href="#prerequisites">Prerequisites</a></li>
-    <li><a href="#installation">Installation</a></li>
-    <li><a href="#preparing-traces">Preparing Traces</a></li>
-    <ul>
-      <li><a href="#more-traces">More Traces</a></li>
-    </ul>
-    <li><a href="#experimental-workflow">Experimental Workflow</a></li>
-      <ul>
-        <li><a href="#launching-experiments">Launching Experiments</a></li>
-        <li><a href="#rolling-up-statistics">Rolling up Statistics</a></li>
-      </ul>
-    </li>
-    <li><a href="#hdl-implementation">HDL Implementation</a></li>
-    <li><a href="#code-walkthrough">Code Walkthrough</a></li>
-    <li><a href="#citation">Citation</a></li>
-    <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgements">Acknowledgements</a></li>
-  </ol>
-</details>
+## Table of Contents
+1. [Architecture Overview](#architecture-overview)
+2. [Key Files & Project Structure](#key-files--project-structure)
+3. [Prerequisites & Build Instructions](#prerequisites--build-instructions)
+4. [Running Experiments](#running-experiments)
+5. [Generating Plots & Presentation Slides](#generating-plots--presentation-slides)
+6. [Experimental Results & Key Insights](#experimental-results--key-insights)
 
-## What is Pythia?
+---
 
-> Pythia is a hardware-realizable, light-weight data prefetcher that uses reinforcement learning to generate accurate, timely, and system-aware prefetch requests. 
+## Architecture Overview
 
-Pythia formulates hardware prefetching as a reinforcement learning task. For every demand request, Pythia observes multiple different types of program context information to take a prefetch decision. For every prefetch decision, Pythia receives a numerical reward that evaluates prefetch quality under the current memory bandwidth utilization. Pythia uses this reward to reinforce the correlation between program context information and prefetch decision to generate highly accurate, timely, and system-aware prefetch requests in the future.
+RICH extends spatial footprint prefetching by combining `PC + Address` disambiguation on small regions with multi-offset trajectory matching (`PC + 3 offsets`) on larger regions:
 
-Pythia is presetend at MICRO 2021.
+### 1. 2KB Region Prefetcher (`rich_region_size = 2048`, 32 cache lines)
+* **Filter Table (`FT`, 64 entries) & Accumulation Table (`AT`, 128 entries):**
+  * On a demand access to a 2KB region not in AT or FT, the trigger access is recorded in the FT.
+  * When a **2nd distinct cache-line offset** is accessed in the same 2KB region, the FT entry is promoted to the AT to record the 32-bit spatial access bitmap.
+* **Pattern History Table (`PHT`, 4096 entries, 16-way set-associative):**
+  * Upon AT eviction, the recorded 32-bit pattern is indexed using both:
+    1. **`PC + Address` signature** — Binds the spatial pattern to the exact data structure base address, eliminating the false-hit aliasing problem of SMS when a single loop PC iterates over multiple arrays.
+    2. **`PC + Offset` signature** — Serves as a fallback when encountering unseen region addresses.
 
-> _Rahul Bera, Konstantinos Kanellopoulos, Anant V. Nori, Taha Shahroodi, Sreenivas Subramoney, Onur Mutlu, "[Pythia: A Customizable Hardware Prefetching Framework Using Online Reinforcement Learning](https://arxiv.org/pdf/2109.12021.pdf)", In Proceedings of the 54th Annual IEEE/ACM International Symposium on Microarchitecture (MICRO), 2021_
+### 2. 4KB Region Prefetcher (`rich_region_4kb_size = 4096`, 64 cache lines)
+* **Lookup FIFO (`LookupFIFO`, 2 entries) & Multi-Offset Trigger (`PC + 3 offsets`):**
+  * Collects the first **3 distinct cache-line offsets** accessed within a 4KB page before hashing `PC + 3 offsets` to query `PHT_4KB`. Waiting for 3 offsets confirms the access trajectory and prevents false triggers when different loops begin at the same offset.
+* **4KB Filter Table (`FT_4KB`, 64 entries), Accumulation Table (`AT_4KB`, 128 entries), and PHT (`PHT_4KB`, 1024 entries, 16-way):**
+  * An `FT_4KB` entry collects the first 3 distinct offsets and is promoted to `AT_4KB` only when the **4th distinct offset** is accessed.
+  * When evicted from `AT_4KB`, the 64-bit spatial footprint is stored in `PHT_4KB` under the `PC + 3 offsets` signature.
 
-## About The Framework
+### 3. Prefetch Buffer
+* A **320-entry FIFO prefetch buffer** queues candidate prefetch addresses generated by the 2KB and 4KB PHTs and injects up to **`rich_pref_degree = 4`** prefetches into the L2C per demand access.
 
-Pythia is implemented in [ChampSim simulator](https://github.com/ChampSim/ChampSim). We have significantly modified the prefetcher integration pipeline in ChampSim to add support to a wide range of prior prefetching proposals mentioned below:
+---
 
-* Stride [Fu+, MICRO'92]
-* Streamer [Chen and Baer, IEEE TC'95]
-* SMS [Somogyi+, ISCA'06]
-* AMPM [Ishii+, ICS'09]
-* Sandbox [Pugsley+, HPCA'14]
-* BOP [Michaud, HPCA'16]
-* SPP [Kim+, MICRO'16]
-* Bingo [Bakshalipour+, HPCA'19]
-* SPP+PPF [Bhatia+, ISCA'19]
-* DSPatch [Bera+, MICRO'19]
-* MLOP [Shakerinava+, DPC-3'19]
-* IPCP [Pakalapati+, ISCA'20]
+## Key Files & Project Structure
 
-Most of the  prefetchers (e.g., SPP [1], Bingo [2], IPCP [3]) reuse codes from [2nd]() and [3rd]() data prefetching championships (DPC). Others (e.g., AMPM [4], SMS [5]) are implemented from scratch and shows similar relative performance reported by previous works.
+| File / Directory | Description |
+| :--- | :--- |
+| `inc/rich.h` | Class definitions and data structures (`FTEntry`, `ATEntry`, `PHTEntry`, `LookupFIFO`, `RichPrefetcher`) |
+| `prefetcher/rich.cc` | Core implementation of RICH (2KB & 4KB tables, signature hashing, lookup FIFO, and prefetch buffer) |
+| `config/rich.ini` | Configuration file enabling the `rich` L2C prefetcher |
+| `config/sms.ini` | Baseline SMS L2C prefetcher configuration |
+| `config/bingo.ini` | Baseline Bingo L2C prefetcher configuration |
+| `config/nopref.ini` | Baseline No-Prefetcher configuration |
+| `run_experiments.sh` | Builds ChampSim and runs `nopref`, `sms`, `bingo`, and `rich` in parallel across `./traces/` |
+| `run_parsec_ligra.sh` | Automated simulation script for PARSEC 2.1 and Ligra benchmark traces |
+| `plot_results.py` | Parses ChampSim logs in `results/` (2KB) and `results4kb/` (2KB+4KB) to plot Speedup, Accuracy, Coverage, and Timeliness |
+| `generate_ppt_slide.py` | Generates 16:9 widescreen presentation slides (`plots/*.png` and `plots/*.pdf`) |
+| `results/` | Simulation outputs for the 2KB region configuration |
+| `results4kb/` | Simulation outputs for the 4KB + 2KB region configuration |
+| `plots/` | Generated publication-style plots and presentation slides |
 
-## Prerequisites
+---
 
-The infrastructure has been tested with the following system configuration:
-  * G++ v6.3.0 20170516
-  * CMake v3.20.2
-  * md5sum v8.26
-  * Perl v5.24.1
+## Prerequisites & Build Instructions
 
-## Installation
-
-0. Install necessary prequisites
-    ```bash
-    sudo apt install perl
-    ```
-1. Clone the GitHub repo
-   
+1. **Build the Bloom Filter library (`libbf`)** *(required once)*:
    ```bash
-   git clone https://github.com/CMU-SAFARI/Pythia.git
+   cd libbf
+   mkdir -p build && cd build
+   cmake ../
+   make clean && make
+   cd ../..
    ```
-2. Clone the bloomfilter library inside Pythia home directory
-   
+
+2. **Build the ChampSim binary (1-Core, L2C multi-prefetcher)**:
    ```bash
-   cd Pythia
-   git clone https://github.com/mavam/libbf.git libbf
+   ./build_champsim.sh no multi no 1
    ```
-3. Build bloomfilter library. This should create the static `libbf.a` library inside `build` directory
-   
-    ```bash
-    cd libbf
-    mkdir build && cd build
-    cmake ../
-    make clean && make
-    ```
-4. Build Pythia for single/multi core using build script. This should create the executable inside `bin` directory.
-   
-   ```bash
-   cd $PYTHIA_HOME
-   # ./build_champsim.sh <l1_pref> <l2_pref> <llc_pref> <ncores>
-   ./build_champsim.sh multi multi no 1
-   ```
-   Please use `build_champsim_highcore.sh` to build ChampSim for more than four cores.
+   This produces `./bin/perceptron-no-multi-no-ship-1core`.
 
-5. _Set appropriate environment variables as follows:_
+---
 
-    ```bash
-    source setvars.sh
-    ```
+## Running Experiments
 
-## Preparing Traces
+Place your `.champsimtrace.xz` / `.gz` traces inside `./traces/` and execute:
 
-> [Update: Dec 18, 2024] The trace will be downloaded in two phases: (1) all traces, except Ligra and PARSEC workloads, will be downloaded using the automated script, and (2) the Ligra and PARSEC traces needs to be downloaded manually from Zenodo repository mentioned below. 
-
-1. Use the `download_traces.pl` perl script to download all traces, except Ligra and PARSEC.
-
-    ```bash
-    mkdir $PYTHIA_HOME/traces/
-    cd $PYTHIA_HOME/scripts/
-    perl download_traces.pl --csv artifact_traces.csv --dir ../traces/
-    ```
-> Note: The script should download **138** traces. Please check the final log for any incomplete downloads.
-
-2. Once the trace download completes, please verify the checksum as follows. _Please make sure all traces pass the checksum test._
-
-    ```bash
-    cd $PYTHIA_HOME/traces
-    md5sum -c ../scripts/artifact_traces.md5
-    ```
-
-3. Download the Ligra and PARSEC traces from these repositories:
-    - Ligra: https://doi.org/10.5281/zenodo.14267977
-    - PARSEC 2.1: https://doi.org/10.5281/zenodo.14268118
-
-4. If the traces are downloaded in some other path, please change the full path in `experiments/MICRO21_1C.tlist` and `experiments/MICRO21_4C.tlist` accordingly.
-
-### More Traces
-* Our simulation infrastructure is completely compatible with all prior ChampSim traces used in CRC-2 and DPC-3. One can also convert the CVP-2 traces (courtesy of Qualcomm Datacenter Technologies) to ChampSim format using [the following converter](https://github.com/ChampSim/ChampSim/tree/master/cvp_tracer). The traces can be found in the follwing websites:
-     * CRC-2 traces: http://bit.ly/2t2nkUj
-     * DPC-3 traces: http://hpca23.cse.tamu.edu/champsim-traces/speccpu/
-     * CVP-2 traces: https://www.microarch.org/cvp1/cvp2/rules.html
-
-## Experimental Workflow
-Our experimental workflow consists of two stages: (1) launching experiments, and (2) rolling up statistics from experiment outputs.
-
-### Launching Experiments
-1. To create necessary experiment commands in bulk, we will use `scripts/create_jobfile.pl`
-2. `create_jobfile.pl` requires three necessary arguments:
-      * `exe`: the full path of the executable to run
-      * `tlist`: contains trace definitions
-      * `exp`: contains knobs of the experiements to run
-3. Create experiments as follows. _Please make sure the paths used in tlist and exp files are appropriate_.
-   
-      ```bash
-      cd $PYTHIA_HOME/experiments/
-      perl ../scripts/create_jobfile.pl --exe $PYTHIA_HOME/bin/perceptron-multi-multi-no-ship-1core --tlist MICRO21_1C.tlist --exp MICRO21_1C.exp --local 1 > jobfile.sh
-      ```
-
-4. Go to a run directory (or create one) inside `experiements` to launch runs in the following way:
-      ```bash
-      cd experiments_1C
-      source ../jobfile.sh
-      ```
-
-5. If you have [slurm](https://slurm.schedmd.com) support to launch multiple jobs in a compute cluster, please provide `--local 0` to `create_jobfile.pl`
-
-### Rolling-up Statistics
-1. To rollup stats in bulk, we will use `scripts/rollup.pl`
-2. `rollup.pl` requires three necessary arguments:
-      * `tlist`
-      * `exp`
-      * `mfile`: specifies stat names and reduction method to rollup
-3. Rollup statistics as follows. _Please make sure the paths used in tlist and exp files are appropriate_.
-   
-      ```bash
-      cd experiements_1C/
-      perl ../../scripts/rollup.pl --tlist ../MICRO21_1C.tlist --exp ../MICRO21_1C.exp --mfile ../rollup_1C_base_config.mfile > rollup.csv
-      ```
-
-4. Export the `rollup.csv` file in you favourite data processor (Python Pandas, Excel, Numbers, etc.) to gain insights.
-
-## HDL Implementation
-We also implement Pythia in [Chisel HDL](https://www.chisel-lang.org) to faithfully measure the area and power cost. The implementation, along with the reports from umcL65 library, can be found the following GitHub repo. Please note that the area and power projections in the sample report is different than what is reported in the paper due to different technology.
-
-<p align="center">
-<a href="https://github.com/CMU-SAFARI/Pythia-HDL">Pythia-HDL</a>
-    <a href="https://github.com/CMU-SAFARI/Pythia-HDL">
-        <img alt="Build" src="https://github.com/CMU-SAFARI/Pythia-HDL/actions/workflows/test.yml/badge.svg">
-    </a>
-</p>
-
-## Code Walkthrough
-> Pythia was code-named Scooby (the mistery-solving dog) during the developement. So any mention of Scooby anywhere in the code inadvertently means Pythia.
-
-* The top-level files for Pythia are `prefetchers/scooby.cc` and `inc/scooby.h`. These two files declare and define the high-level functions for Pythia (e.g., `invoke_prefetcher`, `register_fill`, etc.). 
-* The released version of Pythia has two types of RL engine defined: _basic_ and _featurewise_. They differ only in terms of the QVStore organization (please refer to our [paper](arxiv.org/pdf/2109.12021.pdf) to know more about QVStore). The QVStore for _basic_ version is simply defined as a two-dimensional table, whereas the _featurewise_ version defines it as a hierarchichal organization of multiple small tables. The implementation of respective engines can be found in `src/` and `inc/` directories.
-* `inc/feature_knowledge.h` and `src/feature_knowldege.cc` define how to compute each program feature from the raw attributes of a deamand request. If you want to define your own feature, extend the enum `FeatureType` in `inc/feature_knowledge.h` and define its corresponding `process` function.
-* `inc/util.h` and `src/util.cc` contain all hashing functions used in our evaluation. Play around with them, as a better hash function can also provide performance benefits.
-
-## Citation
-If you use this framework, please cite the following paper:
-```
-@inproceedings{bera2021,
-  author = {Bera, Rahul and Kanellopoulos, Konstantinos and Nori, Anant V. and Shahroodi, Taha and Subramoney, Sreenivas and Mutlu, Onur},
-  title = {{Pythia: A Customizable Hardware Prefetching Framework Using Online Reinforcement Learning}},
-  booktitle = {Proceedings of the 54th Annual IEEE/ACM International Symposium on Microarchitecture},
-  year = {2021}
-}
+```bash
+./run_experiments.sh
 ```
 
-## License
+* **Warmup Instructions:** `50,000,000`
+* **Simulation Instructions:** `200,000,000`
+* Runs `nopref`, `sms`, `bingo`, and `rich` in parallel across all available CPU cores and prints a summary IPC table upon completion.
 
-Distributed under the MIT License. See `LICENSE` for more information.
+To run PARSEC and Ligra suites:
+```bash
+./run_parsec_ligra.sh
+```
 
-## Contact
+---
 
-Rahul Bera - write2bera@gmail.com
+## Generating Plots & Presentation Slides
 
-## Acknowledgements
-We acklowledge support from SAFARI Research Group's industrial partners.
+```bash
+# Generate Speedup and GeoMean (Accuracy, Coverage, Timeliness) plots in ./plots/
+python3 plot_results.py --results-2kb results --results-4kb results4kb --out-dir plots
+
+# Generate 16:9 widescreen presentation slides in ./plots/
+python3 generate_ppt_slide.py
+```
+
+---
+
+## Experimental Results & Key Insights
+
+Evaluated across 5 SPEC CPU2017 workloads (`602.gcc_s-1850B`, `603.bwaves_s-2609B`, `603.bwaves_s-891B`, `605.mcf_s-782B`, `654.roms_s-1070B`):
+
+### Per-Workload Speedup (Normalized IPC over `nopref`)
+
+| Workload | SMS | Bingo | RICH (2KB) | RICH (2KB + 4KB) |
+| :--- | :---: | :---: | :---: | :---: |
+| `602.gcc_s-1850B` | `1.5639x` | `1.5835x` | `1.5552x` | **`1.5882x`** |
+| `603.bwaves_s-2609B` | `1.2698x` | **`1.7069x`** | `1.5148x` | `1.5155x` |
+| `603.bwaves_s-891B` | `2.9624x` | `3.0306x` | `2.8393x` | **`3.1962x`** |
+| `605.mcf_s-782B` | **`0.9063x`** | `0.5269x` | `0.8638x` | `0.8668x` |
+| `654.roms_s-1070B` | `2.0787x` | **`2.1006x`** | `1.7401x` | `1.7884x` |
+| **GeoMean Speedup** | `1.6178x` | `1.5541x` | `1.5866x` | **`1.6417x`** |
+
+### Geometric Mean Summary Across Workloads
+
+| Metric (GeoMean) | SMS | Bingo | RICH (2KB) | RICH (2KB + 4KB) |
+| :--- | :---: | :---: | :---: | :---: |
+| **Speedup** | `1.6178x` | `1.5541x` | `1.5866x` | **`1.6417x`** |
+| **Accuracy (%)** | `76.91%` | **`96.69%`** | `72.92%` | `72.96%` |
+| **Coverage (%)** | `66.97%` | `71.24%` | `70.11%` | **`72.34%`** |
+| **Timeliness (%)** | **`99.25%`** | `98.39%` | `98.42%` | `98.92%` |
+
+<p align="center">
+  <img src="plots/combined_all_metrics.png" alt="Combined Speedup and GeoMean Accuracy, Coverage, Timeliness" width="100%">
+</p>
+
+### Key Takeaways
+1. **Best Overall Speedup (`1.64x` GeoMean) & Coverage (`72.34%` GeoMean):** Adding the 4KB region table (`PC + 3 offsets`) on top of the 2KB region table captures full 64-line page footprints across 2KB boundaries, boosting `603.bwaves_s-891B` from `2.84x` to **`3.20x`**.
+2. **False-Hit Elimination (`PC + Address`):** On multi-array workloads like `603.bwaves_s-2609B`, SMS aliases on `PC + Offset` (`54.5%` coverage, `1.27x` speedup). RICH's `PC + Address` signature disambiguates array base addresses, boosting coverage by **`+23.7%`** (`78.2%` coverage, `1.52x` speedup).
+3. **Accuracy vs. Coverage Trade-off:** Bingo achieves high accuracy (`96.7%`) via confidence thresholds (`0.80` L2 / `0.05` LLC), but its conservative L2 filling causes severe slowdown on irregular pointer-chasing `605.mcf_s-782B` (`0.53x` vs. RICH's `0.87x`).
